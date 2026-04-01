@@ -22,7 +22,7 @@ st.markdown("""
     }
     .title-text {
         color: #004B87; /* Albastru inchis pentru contrast bun pe Baby Blue */
-        font-size: 60px; /* Titlu mai mare */
+        font-size: 80px; /* Titlu mai mare */
         font-weight: 900;
         margin: 0;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -42,7 +42,7 @@ st.markdown("""
         margin-bottom: 8px;
     }
     .authors-names {
-        color: #FFFFFF; /* Numele cu Alb, cum ai cerut */
+        color: #90CAF9; /* Numele cu Alb, cum ai cerut */
         line-height: 1.6;
         font-size: 18px;
     }
