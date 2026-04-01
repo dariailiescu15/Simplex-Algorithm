@@ -8,22 +8,22 @@ from fractions import Fraction
 # ==========================================
 st.set_page_config(page_title="Algoritm Simplex", layout="wide")
 
-# Injectam CSS personalizat pentru culori, banner si aliniere text
+# Injectam CSS personalizat adaptat pentru Dark Mode
 st.markdown("""
     <style>
     /* Design pentru Banner-ul principal (Baby Blue) */
     .title-box {
-        background-color: #BBD2E1; /* Culoarea Baby Blue din imagine */
+        background-color: #BBD2E1; /* Culoarea Baby Blue */
         border-radius: 10px;
-        padding: 20px;
+        padding: 25px; /* Spatiu mai mare */
         text-align: center;
         margin-bottom: 20px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     }
     .title-text {
-        color: #0078D7; /* Albastru puternic pentru text */
-        font-size: 34px;
-        font-weight: bold;
+        color: #004B87; /* Albastru inchis pentru contrast bun pe Baby Blue */
+        font-size: 42px; /* Titlu mai mare */
+        font-weight: 900;
         margin: 0;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -34,20 +34,16 @@ st.markdown("""
         margin-bottom: 40px;
     }
     .authors-title {
-        color: #0078D7;
+        color: #90CAF9; /* Un albastru luminos perfect pentru fundal negru */
         font-weight: bold;
         font-style: italic;
-        font-size: 18px;
+        font-size: 20px;
         margin-bottom: 8px;
     }
     .authors-names {
-        color: #3b82f6; /* Albastru deschis pentru nume */
+        color: #FFFFFF; /* Numele cu Alb, cum ai cerut */
         line-height: 1.6;
-        font-size: 16px;
-    }
-    /* Setam fundalul paginii la alb pur */
-    .stApp {
-        background-color: #FFFFFF;
+        font-size: 18px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -189,7 +185,7 @@ def ruleaza_iteratii_simplex(TS, XB, Cj, baza, nume_var, opt_tip):
         deltas = [Cj[j] - np.dot(CB, TS[:, j]) for j in range(n_tot)]
         
         # === AFISARE TABEL MODERN (DATAFRAME) ===
-        st.markdown(f"<h4 style='color: #0078D7;'>Tabel Simplex T{pas}</h4>", unsafe_allow_html=True)
+        st.markdown(f"<h4 style='color: #90CAF9;'>Tabel Simplex T{pas}</h4>", unsafe_allow_html=True)
         
         # Construim datele pentru tabelul Excel-like
         coloane = ["CB", "Baza", "XB"] + nume_ai
@@ -236,7 +232,7 @@ def ruleaza_iteratii_simplex(TS, XB, Cj, baza, nume_var, opt_tip):
 
 def validare_solutie(XB_final, Z_final, deltas_final, baza_finala, TS_final, A_prim_init, b_init, c_init, mapare, nume_v, opt_t):
     st.markdown("---")
-    st.markdown("<h3 style='color: #0078D7; text-align: center;'>VERIFICĂRI ȘI VALIDARE FINALĂ</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #90CAF9; text-align: center;'>VERIFICĂRI ȘI VALIDARE FINALĂ</h3>", unsafe_allow_html=True)
     st.markdown("---")
 
     col1, col2 = st.columns(2)
@@ -247,13 +243,13 @@ def validare_solutie(XB_final, Z_final, deltas_final, baza_finala, TS_final, A_p
         if opt_t == 'MAX':
             ok = all(d <= 1e-5 for d in deltas_final)
             st.info(f"Dj = {', '.join([f(d) for d in deltas_final])}  <= 0")
-            if ok: st.success("[OK] Criteriu îndeplinit.")
-            else: st.error("[FAIL] Criteriu neîndeplinit.")
+            if ok: st.success("✅ [OK] Criteriu îndeplinit.")
+            else: st.error("❌ [FAIL] Criteriu neîndeplinit.")
         else:
             ok = all(d >= -1e-5 for d in deltas_final)
             st.info(f"Dj = {', '.join([f(d) for d in deltas_final])}  >= 0")
-            if ok: st.success("[OK] Criteriu îndeplinit.")
-            else: st.error("[FAIL] Criteriu neîndeplinit.")
+            if ok: st.success("✅ [OK] Criteriu îndeplinit.")
+            else: st.error("❌ [FAIL] Criteriu neîndeplinit.")
 
         # 3. V2: Verificarea valorii functiei f 
         st.markdown(f"**3. Verificare valoare f(PL):**")
@@ -273,9 +269,9 @@ def validare_solutie(XB_final, Z_final, deltas_final, baza_finala, TS_final, A_p
 
         f_calculata = sum(c_init[i] * x_reconstruit[i] for i in range(len(c_init)))               
         if abs(f_calculata - Z_final) < 1e-10:
-            st.success(f"[OK] Calcul direct in funcție: {f(f_calculata)} == {f(Z_final)}")
+            st.success(f"✅ [OK] Calcul direct in funcție: {f(f_calculata)} == {f(Z_final)}")
         else:
-            st.error(f"[FAIL] Diferență: {f(f_calculata)} != {f(Z_final)}")
+            st.error(f"❌ [FAIL] Diferență: {f(f_calculata)} != {f(Z_final)}")
 
     st.markdown("---")
     
@@ -284,13 +280,14 @@ def validare_solutie(XB_final, Z_final, deltas_final, baza_finala, TS_final, A_p
     
     S_matrice = A_prim_init[:, baza_finala]                                           
     
-    # Afisam frumos sub forma de DataFrames ca sa arate modern
+    # Afisam frumos sub forma de DataFrames
     col_s, col_xb, col_rez, col_ini = st.columns(4)
     
     with col_s:
         st.write("Matricea **S**")
-        df_s = pd.DataFrame(S_matrice, columns=[f"a{b+1}" for b in baza_finala])
-        df_s = df_s.applymap(f) # Aplicam functia de fractii peste tot
+        # FIX PENTRU EROAREA APPLYMAP: Aplicam functia inainte sa facem dataframe-ul!
+        S_formatat = [[f(val) for val in rand] for rand in S_matrice]
+        df_s = pd.DataFrame(S_formatat, columns=[f"a{b+1}" for b in baza_finala])
         st.dataframe(df_s, hide_index=True)
         
     with col_xb:
@@ -344,14 +341,14 @@ with col_vars:
 with col_restr:
     m_restr = st.number_input("Număr de restricții (m)", min_value=1, max_value=10, value=3)
 
-st.markdown("<h4 style='color: #0078D7;'>1. Funcția Obiectiv</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='color: #90CAF9;'>1. Funcția Obiectiv</h4>", unsafe_allow_html=True)
 col_opt, col_c = st.columns([1, 3])
 with col_opt:
     opt_tip = st.selectbox("Tip optimizare", ["MAX", "MIN"], index=0)
 with col_c:
     c_input = st.text_input("Coeficienții funcției f (separați prin virgulă)", "3, 1, 1")
 
-st.markdown("<h4 style='color: #0078D7;'>2. Sistemul de Restricții (A, Semn, b)</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='color: #90CAF9;'>2. Sistemul de Restricții (A, Semn, b)</h4>", unsafe_allow_html=True)
 A_default = [[2, 2, 3], [3, 1, 1], [2, 1, 2]]
 b_default = [12, 11, 8]
 
@@ -366,7 +363,7 @@ df_restr["b"] = [b_default[i] if i<len(b_default) else 0.0 for i in range(m_rest
 
 edited_restr = st.data_editor(df_restr, use_container_width=True)
 
-st.markdown("<h4 style='color: #0078D7;'>3. Condiții variabile</h4>", unsafe_allow_html=True)
+st.markdown("<h4 style='color: #90CAF9;'>3. Condiții variabile</h4>", unsafe_allow_html=True)
 df_cond = pd.DataFrame(">=0", index=["Tip"], columns=[f"x{i+1}" for i in range(n_vars)])
 edited_cond = st.data_editor(
     df_cond, 
