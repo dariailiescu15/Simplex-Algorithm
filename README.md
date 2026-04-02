@@ -9,4 +9,4 @@ Acest proiect implementează algoritmul Simplex pentru rezolvarea problemelor de
 Pe lângă implementarea de bază, proiectul include o aplicație web realizată cu Streamlit, care permite utilizatorilor să introducă propriile probleme de programare liniară direct din browser. Aplicația generează automat tabelele Simplex, afișează pașii intermediari și evidențiază evoluția funcției obiectiv, cât și validarea explicită a acesteia, transformând algoritmul într-un instrument vizual și ușor de înțeles.
 
 ## © 2024 — Iliescu Daria, Lungu Diana, Dedu Anisoara, Dumitrescu Andreea, Simplex Algorithm .
-## All rights reserved. Use, distribution, or modification of this code or application is permitted only with proper attribution to the authors.
+ All rights reserved. Use, distribution, or modification of this code or application is permitted only with proper attribution to the authors.
