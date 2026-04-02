@@ -1,7 +1,6 @@
 # Algoritm-Simplex
 
-# Interfață interactivă
-👉 https://algoritm-simplex-9hffnpn7jvnkvkjhqcrgy9.streamlit.app/
+Interfață interactivă 👉 https://algoritm-simplex-9hffnpn7jvnkvkjhqcrgy9.streamlit.app/
 
 Proiect de echipa, realizat de  Iliescu Daria, Lungu Diana, Dedu Anisoara si Dumitrescu Andreea în cadrul materiei Cercetări Operaționale.
 
