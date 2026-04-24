@@ -24,7 +24,7 @@ A computational application for solving **linear optimization problems** using t
 - Step-by-step generation of Simplex tableaux (T₀, T₁, …)
 - Rigorous validation of the optimal solution based on mathematical convergence criteria
 
-🔗 **[Open Application](https://algoritm-simplex-9hffnpn7jvnkvkjhqcrgy9.streamlit.app/)**
+🔗 **[Open Application](https://algoritm-simplex-ildd.streamlit.app/)**
 
 > **Note:** All in-code comments are written in **Romanian**.
 
